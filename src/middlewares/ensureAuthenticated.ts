@@ -27,11 +27,13 @@ export default function ensureAuthenticated(
   try {
     const decoded = verify(token, authConfig.jwt.secret);
 
-    const { sub } = decoded as TokenPayload; // Forçar tipo de Variável
+    const { sub } = decoded as TokenPayload; // Forçar tipo de variável
 
     request.user = {
+      // Inclui a informação do usuário dentro do Request
       id: sub,
     };
+
     return next();
   } catch {
     throw new Error('Invalid JWT Token');

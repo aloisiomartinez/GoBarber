@@ -1,8 +1,14 @@
 import { Router } from 'express';
+import multer from 'multer';
+import uploadConfig from '../config/upload';
 
 import CreateUserService from '../services/CreateUserService';
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
+
+import ensureAuthenticate from '../middlewares/ensureAuthenticated';
 
 const userRouter = Router();
+const upload = multer(uploadConfig);
 
 userRouter.post('/', async (request, response) => {
   try {
@@ -23,5 +29,26 @@ userRouter.post('/', async (request, response) => {
     return response.status(400).json({ error: err.message });
   }
 });
+userRouter.patch(
+  '/avatar',
+  ensureAuthenticate,
+  upload.single('avatar'),
+  async (request, response) => {
+    try {
+      const updateUserAvatar = new UpdateUserAvatarService();
+
+      const user = await updateUserAvatar.execute({
+        user_id: request.user.id,
+        avatarFilename: request.file.filename,
+      });
+
+      delete user.password;
+
+      return response.json(user);
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  },
+); // Atualizar somente 1 informação
 
 export default userRouter;
