@@ -3,4 +3,4 @@
 </h1>
 
 # GoBarber
-Back-end da aplicação GoBarber do Bootcamp da Rocketseat, utilizando Node.JS.
+
