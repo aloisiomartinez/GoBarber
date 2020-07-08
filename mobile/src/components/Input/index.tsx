@@ -14,7 +14,7 @@ interface InputValueReference {
 }
 
 const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
-  const inputElementRef = useRef(null);
+  const inputElementRef = useRef<any>(null);
 
   const { registerField, defaultValue = '', fieldName, error } = useField(name);
   const inputValueRef = useRef<InputValueReference>({ value: defaultValue });
@@ -27,6 +27,10 @@ const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
       setValue(ref: any, value) {
         inputValueRef.current.value = value;
         inputElementRef.current.setNativeProps({ text: value }); // Responsável por mudar visualmente o valor do Input
+      },
+      clearValue() {
+        inputValueRef.current.value = '';
+        inputElementRef.current.clear();
       },
     });
   }, [fieldName, registerField]);
