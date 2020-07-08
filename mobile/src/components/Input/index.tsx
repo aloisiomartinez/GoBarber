@@ -1,4 +1,9 @@
-import React, { useEffect, useRef, useImperativeHandle } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+} from 'react';
 import { TextInputProps } from 'react-native';
 import { useField } from '@unform/core';
 
@@ -65,4 +70,4 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   );
 };
 
-export default Input;
+export default forwardRef(Input);
