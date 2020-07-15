@@ -61,7 +61,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-      setValue(ref: any, value) {
+      setValue(reference: any, value) {
         inputValueRef.current.value = value;
         inputElementRef.current.setNativeProps({ text: value }); // Responsável por mudar visualmente o valor do Input
       },
