@@ -4,29 +4,18 @@ import { container } from 'tsyringe';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
 
-import CreateUserService from '@modules/users/services/CreateUserService';
 import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
 
 import ensureAuthenticate from '../middlewares/ensureAuthenticated';
 
+import UsersController from '../controllers/UsersController';
+
+const usersController = new UsersController();
+
 const userRouter = Router();
 const upload = multer(uploadConfig);
 
-userRouter.post('/', async (request, response) => {
-  const { name, email, password } = request.body;
-
-  const createUser = container.resolve(CreateUserService);
-
-  const user = await createUser.execute({
-    name,
-    email,
-    password,
-  });
-
-  delete user.password;
-
-  return response.json(user);
-});
+userRouter.post('/', usersController.create);
 userRouter.patch(
   '/avatar',
   ensureAuthenticate,
