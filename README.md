@@ -4,8 +4,6 @@
 
 ## :rocket:  Tecnologias
 
-## :rocket:  Tecnologias
-
 Esse projeto foi desenvolvido utilizando as tecnologias abaixo:
 - <a href="https://www.typescriptlang.org/">Typescript</a>
 - <a href="https://nodejs.org/en/">Node.JS</a>
